@@ -6,6 +6,8 @@ name = "pypi"
 [packages]
 django = "~=4.0"
 gunicorn = "*"
+requests = "*"
+datetime = "*"
 
 [dev-packages]
 
