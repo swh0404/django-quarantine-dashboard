@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Quarantine Centres Dashboard</title>
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <h1 style="text-align: center">Qurantine Centers Dashboard</h1>
+    <div style="width: 100%; max-width: 40em; display: block; margin: auto">
+      <div
+        style="
+          display: block;
+          padding: 1em;
+          margin-bottom: 0.5em;
+          background-color: rgb(150, 200, 200);
+          box-shadow: 0.1em 0.1em 0.2em rgb(100 100 100);
+          font-size: 1.2em;
+        "
+      >
+        <span class="material-icons">calendar_today</span>
+        Qurantine data for
+        <span>{{quarantine.0.today}}</span>
+      </div>
+      <div
+        style="
+          display: block;
+          padding: 1em;
+          margin-bottom: 0.5em;
+          background-color: rgb(150, 200, 200);
+          box-shadow: 0.1em 0.1em 0.2em rgb(100 100 100);
+          font-size: 1.2em;
+        "
+      >
+        <span class="material-icons" title="in use">outlined_flag</span>
+        Quarantine units in use:
+        <span> {{quarantine.1.sum_of_unit_in_use}}</span>
+        <br />
+        <span class="material-icons" title="available">checklist_rtl</span>
+        Qurantine units available:
+        <span>{{quarantine.2.sum_of_unit_available}}</span>
+      </div>
+      <div
+        style="
+          display: block;
+          padding: 1em;
+          margin-bottom: 0.5em;
+          background-color: rgb(150, 200, 200);
+          box-shadow: 0.1em 0.1em 0.2em rgb(100 100 100);
+          font-size: 1.2em;
+        "
+      >
+        <span class="material-icons">insights</span>
+        Highest availability is at:
+        <ul>
+          <li>
+            {{quarantine.3.centre1_name}}:
+            {{quarantine.3.centre1_units_avalable}}
+          </li>
+          <li>
+            {{quarantine.4.centre2_name}}:
+            {{quarantine.4.centre2_units_avalable}}
+          </li>
+          <li>
+            {{quarantine.5.centre3_name}}:
+            {{quarantine.5.centre3_units_avalable}}
+          </li>
+        </ul>
+      </div>
+      <div
+        style="
+          display: block;
+          padding: 1em;
+          margin-bottom: 0.5em;
+          background-color: rgb(150, 200, 200);
+          box-shadow: 0.1em 0.1em 0.2em rgb(100 100 100);
+          font-size: 1.2em;
+        "
+      >
+        <span class="material-icons">people</span>
+        Number of persons quarantine:
+        <span> {{quarantine.6.response3_sum_of_quarantine}} </span>
+        <br/>
+        <span class="material-icons" title="non-close contacts"
+          >safety_divider</span
+        >
+        Non-close contacts:
+        <span>{{quarantine.6.total_non_close_contacts}}</span>
+      </div>
+      {% if quarantine.7.data_consistent%}
+      <div
+        style="
+          display: block;
+          padding: 1em;
+          margin-bottom: 0.5em;
+          background-color: rgb(150, 200, 200);
+          box-shadow: 0.1em 0.1em 0.2em rgb(100 100 100);
+          font-size: 1.2em;
+        "
+      >
+        <span class="material-icons">check</span>
+        Count is consistent with quarantine records
+      </div>
+      {% endif %} {% if not quarantine.7.data_consistent%}
+      <div
+        style="
+          display: block;
+          padding: 1em;
+          margin-bottom: 0.5em;
+          background-color: rgb(200, 180, 160);
+          box-shadow: 0.1em 0.1em 0.2em rgb(100 100 100);
+          font-size: 1.2em;
+        "
+      >
+        <span class="material-icons">warning</span>
+        Warning: Count is not consistent with quarantine records
+      </div>
+      {% endif %} {% if quarantine.8.seven_days_alert%}
+      <div
+        style="
+          display: block;
+          padding: 1em;
+          margin-bottom: 0.5em;
+          background-color: rgb(200, 180, 160);
+          box-shadow: 0.1em 0.1em 0.2em rgb(100 100 100);
+          font-size: 1.2em;
+        "
+      >
+        <span class="material-icons">error</span>
+        Sorry, no data found within the past 7 days
+      </div>
+      {% endif %} {% if quarantine.9.access_endpoint_alert%}
+      <div
+        style="
+          display: block;
+          padding: 1em;
+          margin-bottom: 0.5em;
+          background-color: rgb(200, 180, 160);
+          box-shadow: 0.1em 0.1em 0.2em rgb(100 100 100);
+          font-size: 1.2em;
+        "
+      >
+        <span class="material-icons">error</span>
+        Sorry, something went wrong. Please try again later
+      </div>
+      {% endif %}
+    </div>
+  </body>
+</html>
