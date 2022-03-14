@@ -13,6 +13,7 @@
   <body>
     <h1 style="text-align: center">Qurantine Centers Dashboard</h1>
     <div style="width: 100%; max-width: 40em; display: block; margin: auto">
+    {% if quarantine.7.data_consistent%}
       <div
         style="
           display: block;
@@ -25,7 +26,7 @@
       >
         <span class="material-icons">calendar_today</span>
         Qurantine data for
-        <span>{{quarantine.0.today}}</span>
+        <span><b>{{quarantine.0.today}}</b></span>
       </div>
       <div
         style="
@@ -39,11 +40,11 @@
       >
         <span class="material-icons" title="in use">outlined_flag</span>
         Quarantine units in use:
-        <span> {{quarantine.1.sum_of_unit_in_use}}</span>
+        <span><b>{{quarantine.1.sum_of_unit_in_use}}</b> </span>
         <br />
         <span class="material-icons" title="available">checklist_rtl</span>
         Qurantine units available:
-        <span>{{quarantine.2.sum_of_unit_available}}</span>
+        <span><b>{{quarantine.2.sum_of_unit_available}}</b></span>
       </div>
       <div
         style="
@@ -60,15 +61,15 @@
         <ul>
           <li>
             {{quarantine.3.centre1_name}}:
-            {{quarantine.3.centre1_units_avalable}}
+            <b>{{quarantine.3.centre1_units_avalable}} unit</b>
           </li>
           <li>
             {{quarantine.4.centre2_name}}:
-            {{quarantine.4.centre2_units_avalable}}
+            <b>{{quarantine.4.centre2_units_avalable}} unit</b>
           </li>
           <li>
             {{quarantine.5.centre3_name}}:
-            {{quarantine.5.centre3_units_avalable}}
+            <b>{{quarantine.5.centre3_units_avalable}} unit</b>
           </li>
         </ul>
       </div>
@@ -84,14 +85,15 @@
       >
         <span class="material-icons">people</span>
         Number of persons quarantine:
-        <span> {{quarantine.6.response3_sum_of_quarantine}} </span>
+        <span> <b>{{quarantine.6.response3_sum_of_quarantine}}</b> </span>
         <br/>
         <span class="material-icons" title="non-close contacts"
           >safety_divider</span
         >
         Non-close contacts:
-        <span>{{quarantine.6.total_non_close_contacts}}</span>
+        <span><b>{{quarantine.6.total_non_close_contacts}}</b></span>
       </div>
+      {% endif %}
       {% if quarantine.7.data_consistent%}
       <div
         style="
@@ -106,7 +108,7 @@
         <span class="material-icons">check</span>
         Count is consistent with quarantine records
       </div>
-      {% endif %} {% if not quarantine.7.data_consistent%}
+      {% endif %} {% if quarantine.7.data_inconsistent%}
       <div
         style="
           display: block;
