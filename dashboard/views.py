@@ -29,15 +29,17 @@ def total(request):
         response1 = requests.get('https://api.data.gov.hk/v2/filter', params={'q': json.dumps(
             {"resource": "http://www.chp.gov.hk/files/misc/occupancy_of_quarantine_centres_eng.csv", "section": 1, "format": "json", "filters": [[1, "eq", [today]]]})}).json()
         response1_access_endpoint = True
+        print(response1)
         for i in response1:
             sum_of_unit_in_use += i["Current unit in use"]
             sum_of_unit_available += i["Ready to be used (unit)"]
             response1_sum_of_qurantine += i["Current person in use"]
     except:
         response1_access_endpoint = False
+
     try:
         response2 = requests.get('https://api.data.gov.hk/v2/filter', params={'q': json.dumps(
-        {"resource": "http://www.chp.gov.hk/files/misc/occupancy_of_quarantine_centres_eng.csv", "section": 1, "format": "json", "sorts": [[8, "desc"]], "filters": [[1, "eq", ["13/03/2022"]]]})}).json()
+        {"resource": "http://www.chp.gov.hk/files/misc/occupancy_of_quarantine_centres_eng.csv", "section": 1, "format": "json", "sorts": [[8, "desc"]], "filters": [[1, "eq", [today]]]})}).json()
         centre1_name= response2[0]["Quarantine centres"]
         centre1_units_avalable = response2[0]["Ready to be used (unit)"]
         centre2_name= response2[1]["Quarantine centres"]
@@ -45,22 +47,25 @@ def total(request):
         centre3_name= response2[2]["Quarantine centres"]
         centre3_units_avalable = response2[2]["Ready to be used (unit)"]
     except:
-        centre1_name= None
+        centre1_name= "N/A"
         centre1_units_avalable = 0
-        centre2_name= None
+        centre2_name= "N/A"
         centre2_units_avalable = 0
-        centre3_name= None
+        centre3_name= "N/A"
         centre3_units_avalable = 0
+
     try:
-        response3 = requests.get('https://api.data.gov.hk/v2/filter', params={'q': json.dumps(
-            {"resource": "http://www.chp.gov.hk/files/misc/no_of_confines_by_types_in_quarantine_centres_eng.csv", "section": 1, "format": "json", "filters": [[1, "eq", [today]]]})}).json()
+        response3 = requests.get('https://api.data.gov.hk/v2/filter', params={'q': json.dumps({"resource":"http://www.chp.gov.hk/files/misc/no_of_confines_by_types_in_quarantine_centres_eng.csv","section":1,"format":"json","filters":[[1,"eq",[today]]]})}).json()
+        # print(response3)
         response3_access_endpoint = True
+        # print("response3"+response3_access_endpoint)
         number_of_close_contact=response3[0]["Current number of close contacts of confirmed cases"]
         number_of_non_close_contact = response3[0]["Current number of non-close contacts"]
     except:
         response3_access_endpoint = False
         number_of_close_contact= 0
         number_of_non_close_contact = 0
+
     response4 = requests.get('https://api.data.gov.hk/v2/filter', params={'q': json.dumps(
         {"resource": "http://www.chp.gov.hk/files/misc/occupancy_of_quarantine_centres_eng.csv", "section": 1, "format": "json", "filters": [[1, "eq", [seven_days_before.strftime("%d/%m/%Y")]]]})}).json()
     response5 = requests.get('https://api.data.gov.hk/v2/filter', params={'q': json.dumps(
@@ -72,9 +77,12 @@ def total(request):
     else:
         seven_days_alert = False
     if not (response1_access_endpoint and response3_access_endpoint):
+        print(response1_access_endpoint)
+        print(response3_access_endpoint)
         access_endpoint_alert = True
     else:
         access_endpoint_alert = False
+
     if access_endpoint_alert == False:
         if (response3[0]["Current number of close contacts of confirmed cases"] + response3[0]["Current number of non-close contacts"]) == response1_sum_of_qurantine:
             data_consistent =True
